@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lex Pro Advocates - Digital Portal</title>
+    <style>
+        :root {
+            --primary-color: #1a252f;
+            --accent-color: #c5a059;
+            --text-color: #333;
+            --bg-color: #f4f6f9;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 4px solid var(--accent-color);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: var(--accent-color);
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            margin: 30px 0;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-top: 3px solid var(--accent-color);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #555;
+        }
+        input[type="text"], input[type="tel"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 5px rgba(197, 160, 89, 0.3);
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2c3e50;
+        }
+        footer {
+            margin-top: auto;
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>LEX PRO ADVOCATES</h1>
+        <p>Law Firm & Legal Consultants</p>
+    </header>
+
+    <div class="container">
+        <h2>Digital Case Intake Form</h2>
+        <form id="legalForm">
+            <div class="form-group">
+                <label for="clientName">Client Name (سائل کا نام):</label>
+                <input type="text" id="clientName" required placeholder="Enter full name">
+            </div>
+
+            <div class="form-group">
+                <label for="clientPhone">Phone Number (موبائل نمبر):</label>
+                <input type="tel" id="clientPhone" required placeholder="03xx-xxxxxxx">
+            </div>
+
+            <div class="form-group">
+                <label for="caseType">Case Category (کیس کی قسم):</label>
+                <select id="caseType" required>
+                    <option value="">-- Select Category --</option>
+                    <option value="Civil (دیوانی)">Civil (دیوانی)</option>
+                    <option value="Criminal (فوجداری)">Criminal (فوجداری)</option>
+                    <option value="Cybercrime (سائبر کرائم)">Cybercrime (سائبر کرائم)</option>
+                    <option value="Other Legal Consultation">Other Consultation</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="caseDetails">Case Description (کیس کی تفصیلات):</label>
+                <textarea id="caseDetails" required placeholder="Briefly describe your legal issue..."></textarea>
+            </div>
+
+            <button type="button" onclick="sendToWhatsApp()">Submit Application</button>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2026 Lex Pro Advocates. All Rights Reserved.
+    </footer>
+
+    <script>
+        function sendToWhatsApp() {
+            const name = document.getElementById('clientName').value;
+            const phone = document.getElementById('clientPhone').value;
+            const type = document.getElementById('caseType').value;
+            const details = document.getElementById('caseDetails').value;
+
+            if(!name || !phone || !type || !details) {
+                alert('Please fill all the fields before submitting.');
+                return;
+            }
+
+            // Professional WhatsApp Message Formatting
+            const baseText = `*LEX PRO ADVOCATES - NEW INTAKE*\n\n` +
+                             `• *Client Name:* ${name}\n` +
+                             `• *Phone:* ${phone}\n` +
+                             `• *Case Type:* ${type}\n` +
+                             `• *Details:* ${details}`;
+
+            const encodedText = encodeURIComponent(baseText);
+            
+            // Appending the advocate's official contact number
+            const whatsappUrl = `https://wa.me/923364414033?text=${encodedText}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+
+</body>
+</html>
