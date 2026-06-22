@@ -3,318 +3,423 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lex Pro Advocates | Expert Legal Consultants</title>
+    <title>Lex Pro Legal App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #0f172a;
-            --secondary-color: #1e293b;
-            --accent-color: #d4af37;
-            --text-light: #f8fafc;
-            --text-dark: #334155;
-            --bg-light: #f1f5f9;
+            --bg-app: #0b0f19;
+            --bg-card: #151d30;
+            --accent: #d4af37;
+            --text-main: #ffffff;
+            --text-muted: #8a99ad;
+            --border: #222f47;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            scroll-behavior: smooth;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            background-color: var(--bg-light);
-            color: var(--text-dark);
+            background-color: var(--bg-app);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* Navigation Bar */
-        nav {
-            background-color: var(--primary-color);
-            border-bottom: 3px solid var(--accent-color);
+        /* App Header */
+        .app-header {
+            background-color: var(--bg-card);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 15px 20px;
+            z-index: 100;
+        }
+
+        .app-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-brand i {
+            color: var(--accent);
+            font-size: 20px;
+        }
+
+        .app-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .app-title span {
+            color: var(--accent);
+        }
+
+        .status-badge {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        /* Main App Container */
+        .app-container {
+            flex: 1;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            margin-bottom: 70px; /* space for bottom nav */
+        }
+
+        /* App Cards */
+        .app-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .card-header i {
+            color: var(--accent);
+            font-size: 16px;
+        }
+
+        .card-header h3 {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Quick Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-box .num {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .stat-box .lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Form Inputs (App Style) */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .input-field {
+            width: 100%;
+            background-color: rgba(0,0,0,0.2);
+            border: 1px solid var(--border);
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.1);
+        }
+
+        select.input-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%238a99ad'><path d='M0 3l5 5 5-5z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+        }
+
+        /* App Action Buttons */
+        .app-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #d4af37, #aa841c);
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(212, 175, 55, 0.15);
+        }
+
+        .app-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Bottom App Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--bg-card);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-        }
-        nav .logo {
-            color: var(--accent-color);
-            font-size: 22px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        nav .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        nav .nav-links a {
-            color: var(--text-light);
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-        nav .nav-links a:hover {
-            color: var(--accent-color);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.8));
-            color: var(--text-light);
-            text-align: center;
-            padding: 60px 20px;
-            border-bottom: 5px solid var(--accent-color);
-        }
-        .hero h2 {
-            font-size: 28px;
-            color: var(--accent-color);
-            margin-bottom: 10px;
-        }
-        .hero p {
-            font-size: 16px;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-            line-height: 1.6;
-        }
-        .hero .btn {
-            background-color: var(--accent-color);
-            color: var(--primary-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            display: inline-block;
-        }
-
-        /* Sections Main Styling */
-        .section {
-            padding: 50px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .section h2 {
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            position: relative;
-            font-size: 24px;
-        }
-        .section h2::after {
-            content: '';
-            display: block;
-            width: 50px;
-            height: 3px;
-            background-color: var(--accent-color);
-            margin: 8px auto 0 auto;
-        }
-
-        /* About Section */
-        .about-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            line-height: 1.7;
-        }
-
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-        .service-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-color);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .service-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        /* Form / Intake Section */
-        .form-container {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border-top: 4px solid var(--accent-color);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        input[type="text"], input[type="tel"], textarea, select {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 14px;
-        }
-        textarea {
-            height: 90px;
-            resize: vertical;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 10px;
+            gap: 4px;
             cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: var(--secondary-color);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--primary-color);
-            color: var(--text-light);
-            text-align: center;
-            padding: 20px;
-            font-size: 13px;
-            border-top: 3px solid var(--accent-color);
-            margin-top: 40px;
+            background: none;
+            border: none;
+            width: 20%;
         }
 
-        @media (min-width: 600px) {
-            nav {
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 15px 40px;
-            }
-            nav .logo { margin-bottom: 0; }
-            .services-grid { grid-template-columns: repeat(3, 1fr); }
+        .nav-item i {
+            font-size: 18px;
         }
+
+        .nav-item.active {
+            color: var(--accent);
+        }
+
+        /* Interactive App Tabs Logic */
+        .app-page {
+            display: none;
+        }
+
+        .app-page.active {
+            display: block;
+        }
+
+        /* Diary/Cause List Layout */
+        .diary-item {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .diary-meta h4 { font-size: 14px; color: var(--text-main); }
+        .diary-meta p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .case-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; background: #222f47; color: var(--accent); }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">LEX PRO ADVOCATES</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#contact">Consultation</a>
+    <!-- Top App Bar -->
+    <div class="app-header">
+        <div class="app-brand">
+            <i class="fa-solid fa-scale-balanced"></i>
+            <div class="app-title">LEX PRO<span>.app</span></div>
         </div>
-    </nav>
-
-    <div class="hero" id="home">
-        <h2>Commitment to Justice & Excellence</h2>
-        <p>Providing premium and reliable legal counsel across Civil, Criminal, and Cybercrime litigation. Your trust is our core foundation.</p>
-        <a href="#contact" class="btn">Book Online Consultation</a>
+        <div class="status-badge"><i class="fa-solid fa-circle-check"></i> Connected</div>
     </div>
 
-    <div class="section" id="about">
-        <h2>About The Firm</h2>
-        <div class="about-card">
-            <p><strong>Lex Pro Advocates</strong> is a premier corporate and litigation law firm committed to providing top-tier legal representation. Backed by extensive academic excellence and professional enrollment with the Punjab Bar Council, we strive to safeguard our clients' rights with ultimate diligence.</p>
-            <br>
-            <p>Our goal is to simplify legal complexities and offer strategic defense and consultation tailored to your unique requirements.</p>
-        </div>
-    </div>
+    <!-- Central App Viewport -->
+    <div class="app-container">
 
-    <div class="section" id="services">
-        <h2>Practice Areas</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Civil Litigation</h3>
-                <p>Handling property disputes, family court matters, contract enforcement, and comprehensive stay orders.</p>
+        <!-- TAB 1: DASHBOARD OVERVIEW -->
+        <div id="tab-dashboard" class="app-page active">
+            <div class="app-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <h3>Firm Console Overview</h3>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="num">Active</div>
+                        <div class="lbl">System Sync</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="num">24/7</div>
+                        <div class="lbl">Intake Status</div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card">
-                <h3>Criminal Defense</h3>
-                <p>Expert legal advocacy for trials, bails, appellate procedures, and strict legal defenses.</p>
-            </div>
-            <div class="service-card">
-                <h3>Cybercrime</h3>
-                <p>Dedicated modern defense addressing online harassment, digital fraud, and FIA cybercrime inquiries.</p>
+
+            <div class="app-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <h3>Practice Verification</h3>
+                </div>
+                <p style="font-size: 13px; color: var(--text-muted); line-height: 1.6;">
+                    Authorized digital terminal for managing synchronized intake and processing structures across corporate litigation networks.
+                </p>
             </div>
         </div>
-    </div>
 
-    <div class="section" id="contact">
-        <h2>Digital Intake Portal</h2>
-        <div class="form-container">
-            <form id="legalForm">
-                <div class="form-group">
-                    <label for="clientName">Client Name (سائل کا نام):</label>
-                    <input type="text" id="clientName" required placeholder="Enter full name">
+        <!-- TAB 2: INTAKE APPLICATION ENGINE -->
+        <div id="tab-intake" class="app-page">
+            <div class="app-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-file-signature"></i>
+                    <h3>Secure Intake Engine</h3>
                 </div>
-
-                <div class="form-group">
-                    <label for="clientPhone">Phone Number (موبائل نمبر):</label>
-                    <input type="tel" id="clientPhone" required placeholder="03xx-xxxxxxx">
-                </div>
-
-                <div class="form-group">
-                    <label for="caseType">Case Category (کیس کی قسم):</label>
-                    <select id="caseType" required>
-                        <option value="">-- Select Category --</option>
-                        <option value="Civil (دیوانی)">Civil (دیوانی)</option>
-                        <option value="Criminal (فوجداری)">Criminal (فوجداری)</option>
-                        <option value="Cybercrime (سائبر کرائم)">Cybercrime (سائبر کرائم)</option>
-                        <option value="General Consultation">General Consultation</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="caseDetails">Case Description (کیس کی تفصیلات):</label>
-                    <textarea id="caseDetails" required placeholder="Briefly describe your legal issue..."></textarea>
-                </div>
-
-                <button type="button" onclick="sendToWhatsApp()">Submit Application</button>
-            </form>
+                <form id="appIntakeForm">
+                    <div class="input-group">
+                        <label>CLIENT FULL NAME (سائل کا نام)</label>
+                        <input type="text" id="cName" class="input-field" placeholder="Enter full identity name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>MOBILE ROUTING NUMBER (موبائل نمبر)</label>
+                        <input type="tel" id="cPhone" class="input-field" placeholder="03xx xxxxxxx" required>
+                    </div>
+                    <div class="input-group">
+                        <label>LITIGATION CATEGORY (کیس کی قسم)</label>
+                        <select id="cType" class="input-field" required>
+                            <option value="">Select Category Structure</option>
+                            <option value="Civil Litigation (دیوانی)">Civil Litigation (دیوانی)</option>
+                            <option value="Criminal Defense (فوجداری)">Criminal Defense (فوجداری)</option>
+                            <option value="Cybercrime / FIA (سائبر کرائم)">Cybercrime / FIA (سائبر کرائم)</option>
+                            <option value="Corporate Consultation">Corporate Consultation</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>CASE PARAMETERS & DETAILS (کیس کی تفصیلات)</label>
+                        <textarea id="cDetails" class="input-field" placeholder="Describe core parameters..." required></textarea>
+                    </div>
+                    <button type="button" class="app-btn" onclick="executeAppRouting()">
+                        <i class="fa-solid fa-paper-plane"></i> Transmit Application
+                    </button>
+                </form>
+            </div>
         </div>
+
+        <!-- TAB 3: LAWYER'S DIARY UTILITY -->
+        <div id="tab-diary" class="app-page">
+            <div class="app-card">
+                <div class="card-header">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <h3>Active System Logs</h3>
+                </div>
+                
+                <div class="diary-item">
+                    <div class="diary-meta">
+                        <h4>Civil Court Deployments</h4>
+                        <p>Status: Monitoring System Sync</p>
+                    </div>
+                    <span class="case-tag">CPC Module</span>
+                </div>
+
+                <div class="diary-item">
+                    <div class="diary-meta">
+                        <h4>Criminal Registry Terminals</h4>
+                        <p>Status: Standby Operations</p>
+                    </div>
+                    <span class="case-tag">CrPC Module</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer>
-        &copy; 2026 Lex Pro Advocates. All Rights Reserved. <br>
-        Developed for Professional Legal Record Management.
-    </footer>
+    <!-- Floating App Navigation Dock -->
+    <div class="bottom-nav">
+        <button class="nav-item active" onclick="switchAppTab(this, 'tab-dashboard')">
+            <i class="fa-solid fa-gauge-high"></i>
+            <span>Console</span>
+        </button>
+        <button class="nav-item" onclick="switchAppTab(this, 'tab-intake')">
+            <i class="fa-solid fa-square-plus"></i>
+            <span>Intake</span>
+        </button>
+        <button class="nav-item" onclick="switchAppTab(this, 'tab-diary')">
+            <i class="fa-solid fa-receipt"></i>
+            <span>Logs</span>
+        </button>
+    </div>
 
     <script>
-        function sendToWhatsApp() {
-            const name = document.getElementById('clientName').value;
-            const phone = document.getElementById('clientPhone').value;
-            const type = document.getElementById('caseType').value;
-            const details = document.getElementById('caseDetails').value;
+        // Tab Switching Logic inside App Viewport
+        function switchAppTab(element, tabId) {
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.app-page').forEach(page => page.classList.remove('active'));
+            
+            element.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // WhatsApp Secure Protocol Transmission
+        function executeAppRouting() {
+            const name = document.getElementById('cName').value;
+            const phone = document.getElementById('cPhone').value;
+            const type = document.getElementById('cType').value;
+            const details = document.getElementById('cDetails').value;
 
             if(!name || !phone || !type || !details) {
-                alert('Please fill all fields before submitting.');
+                alert('App Notification: Secure fields cannot be empty.');
                 return;
             }
 
-            const baseText = `*LEX PRO ADVOCATES - NEW INTAKE*\n\n` +
-                             `• *Client Name:* ${name}\n` +
-                             `• *Phone:* ${phone}\n` +
-                             `• *Case Type:* ${type}\n` +
-                             `• *Details:* ${details}`;
+            const appPayload = `*LEX PRO SYSTEM RECON*\n\n` +
+                               `• *Identifier:* ${name}\n` +
+                               `• *Routing:* ${phone}\n` +
+                               `• *Structure:* ${type}\n` +
+                               `• *Log Summary:* ${details}`;
 
-            const encodedText = encodeURIComponent(baseText);
-            const whatsappUrl = `https://wa.me/923364414033?text=${encodedText}`;
+            const encryptedPayload = encodeURIComponent(appPayload);
+            const dynamicGateway = `https://wa.me/923364414033?text=${encryptedPayload}`;
             
-            window.open(whatsappUrl, '_blank');
+            window.open(dynamicGateway, '_blank');
         }
     </script>
-
 </body>
 </html>
